@@ -38,7 +38,7 @@ class YamlRouteServiceProvider implements ServiceProviderInterface
 
 	public function register(Application $app)
 	{
-		$app->extend('routes', function (RouteCollection $routes, Application $app)
+		$app['routes'] = $app->share($app->extend('routes', function (RouteCollection $routes, Application $app)
 		{
 			if ($this->cache_dir)
 			{
@@ -63,7 +63,7 @@ class YamlRouteServiceProvider implements ServiceProviderInterface
 			$routes->addCollection($collection);
 
 			return $routes;
-		});
+		}));
 	}
 
 	public function boot(Application $app) 
