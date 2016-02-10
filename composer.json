@@ -1,0 +1,21 @@
+{
+	"name": "junker/yaml-route-service-provider",
+	"description": "Silex Service provider for using YAML routing files",
+	"keywords": ["silex","yaml"],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Dmitry Kosenkov",
+			"email": "dk-junker@ya.ru"
+		}
+	],
+	"require": {
+		"silex/silex": ">=1.0 <=1.3",
+        "symfony/yaml": "~2.4"
+	},
+    "autoload": {
+        "psr-0" : {
+            "Junker" : "src/"
+        }
+    }
+}
