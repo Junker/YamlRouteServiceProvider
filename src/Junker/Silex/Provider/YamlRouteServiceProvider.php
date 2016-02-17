@@ -22,6 +22,7 @@ class YamlRouteServiceProvider implements ServiceProviderInterface
 
 	protected $configCacheFactory;
 
+
 	public function __construct($file, $options = NULL)
 	{
 		if (is_array($options))
@@ -42,7 +43,7 @@ class YamlRouteServiceProvider implements ServiceProviderInterface
 		{
 			if ($this->cache_dir)
 			{
-				$cache = $this->getConfigCacheFactory()->cache($this->cache_dir.'/RouteCollection.php',
+				$cache = $this->getConfigCacheFactory()->cache($this->cache_dir.'/routes.cache.php',
 					function (ConfigCacheInterface $cache) 
 					{
 						$collection = $this->loadRouteCollection();
