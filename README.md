@@ -18,7 +18,7 @@ The best way to install YamlRouteServiceProvider is to use a [Composer](https://
 ```php
 use Junker\Silex\Provider\YamlRouteServiceProvider;
 
-$app->register(new YamlRouteServiceProvider('routes.yml');
+$app->register(new YamlRouteServiceProvider('routes.yml'));
 
 #or
 
