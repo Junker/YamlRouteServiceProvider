@@ -5,93 +5,82 @@ namespace Junker\Silex\Provider;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 use Symfony\Component\Config\ConfigCacheInterface;
-use Symfony\Component\Config\ConfigCacheFactoryInterface;
 use Symfony\Component\Config\ConfigCacheFactory;
 use Symfony\Component\Routing\Loader\YamlFileLoader;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Config\FileLocator;
-
 use Junker\Silex\PhpRouteCollectionDumper;
-
 
 class YamlRouteServiceProvider implements ServiceProviderInterface
 {
-	protected $cache_dir;
-	protected $debug;
-	protected $file;
+    protected $cacheDirPath;
+    protected $configFilePath;
+    protected $configCacheFactory;
 
-	protected $configCacheFactory;
+    /**
+     * @param string     $configFilePath Path to config file
+     * @param null|array $options        Provider options
+     */
+    public function __construct($configFilePath, $options = null)
+    {
+        if (is_array($options)) {
+            if (isset($options['cache_dir'])) {
+                $this->cacheDirPath = $options['cache_dir'];
+            }
+        }
 
+        $this->configFilePath = $configFilePath;
+    }
 
-	public function __construct($file, $options = NULL)
-	{
-		if (is_array($options))
-		{
-			if (isset($options['cache_dir']))
-				$this->cache_dir = $options['cache_dir'];
+    public function register(Application $app)
+    {
+        $app['routes'] = $app->share($app->extend('routes', function (RouteCollection $routes, Application $app) {
+            if ($this->cacheDirPath) {
+                $cache = $this->getConfigCacheFactory($app['debug'])->cache($this->cacheDirPath.'/routes.cache.php',
+                    function (ConfigCacheInterface $cache) {
+                        $collection = $this->loadRouteCollection();
 
-			if (isset($options['debug']))
-				$this->debug = $options['debug'];
-		}
+                        $content = PhpRouteCollectionDumper::dump($collection);
 
-		$this->file = $file;
-	}
+                        $cache->write($content, $collection->getResources());
+                    }
+                );
 
-	public function register(Application $app)
-	{
-		$app['routes'] = $app->share($app->extend('routes', function (RouteCollection $routes, Application $app)
-		{
-			if ($this->cache_dir)
-			{
-				$cache = $this->getConfigCacheFactory()->cache($this->cache_dir.'/routes.cache.php',
-					function (ConfigCacheInterface $cache) 
-					{
-						$collection = $this->loadRouteCollection();
+                $collection = include $cache->getPath();
+            } else {
+                $collection = $this->loadRouteCollection();
+            }
 
-						$content = PhpRouteCollectionDumper::dump($collection);
+            $routes->addCollection($collection);
 
-						$cache->write($content, $collection->getResources());
-					}
-				);
+            return $routes;
+        }));
+    }
 
-				$collection = include $cache->getPath();
-			}
-			else
-			{
-				$collection = $this->loadRouteCollection();
-			}
+    public function boot(Application $app)
+    {
+    }
 
-			$routes->addCollection($collection);
+    /**
+     * @param bool $debug Is debug mode enabled
+     *
+     * @return ConfigCacheFactory
+     */
+    private function getConfigCacheFactory($debug)
+    {
+        if ($this->configCacheFactory === null) {
+            $this->configCacheFactory = new ConfigCacheFactory($debug);
+        }
 
-			return $routes;
-		}));
-	}
+        return $this->configCacheFactory;
+    }
 
-	public function boot(Application $app) 
-	{
-	}
+    protected function loadRouteCollection()
+    {
+        $loader = new YamlFileLoader(new FileLocator(dirname($this->configFilePath)));
 
-	private function getConfigCacheFactory()
-	{
-		if ($this->configCacheFactory === NULL) 
-		{
-			$this->configCacheFactory = new ConfigCacheFactory($this->debug);
-		}
+        $collection = $loader->load($this->configFilePath);
 
-		return $this->configCacheFactory;
-	}
-
-	protected function loadRouteCollection()
-	{
-
-		$loader = new YamlFileLoader(new FileLocator(dirname($this->file)));
-
-		$collection = $loader->load($this->file);
-
-		return $collection;
-
-	}		
-
-
-
+        return $collection;
+    }
 }
