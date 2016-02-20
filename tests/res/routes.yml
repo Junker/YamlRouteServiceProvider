@@ -1,0 +1,11 @@
+home:
+    path: /
+    defaults: { _controller: 'Acme\Controller\AppController::indexAction' }
+
+articles.list:
+    path: /articles
+    defaults: { _controller: 'Acme\Controller\ArticlesController::indexAction' }
+
+articles.view:
+    path: /articles/{slug}
+    defaults: { _controller: 'Acme\Controller\ArticlesController::viewAction' }
