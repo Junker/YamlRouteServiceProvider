@@ -1,19 +1,22 @@
 {
-	"name": "junker/yaml-route-service-provider",
-	"description": "Silex Service provider for using YAML routing files",
-	"keywords": ["silex","yaml"],
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Dmitry Kosenkov",
-			"email": "dk-junker@ya.ru"
-		}
-	],
-	"require": {
-		"silex/silex": "1.*",
+    "name": "junker/yaml-route-service-provider",
+    "description": "Silex Service provider for using YAML routing files",
+    "keywords": ["silex","yaml"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dmitry Kosenkov",
+            "email": "dk-junker@ya.ru"
+        }
+    ],
+    "require": {
+        "silex/silex": "1.*",
         "symfony/yaml": "~2.8|~3.0",
-		"symfony/config": "~2.8|~3.0"
-	},
+        "symfony/config": "~2.8|~3.0"
+    },
+    "require-dev": {
+        "symfony/browser-kit": "~2.8|~3.0"
+    },
     "autoload": {
         "psr-0" : {
             "Junker" : "src/"

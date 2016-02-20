@@ -54,6 +54,10 @@ Controller example:
 ```php
 # Acme\Controller\ArticlesController.php
 
+use Silex\Application;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
 namespace Acme\Controller;
 
 class ArticlesController
