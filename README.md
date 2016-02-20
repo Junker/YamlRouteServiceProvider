@@ -4,7 +4,7 @@ Silex Service provider for using YAML routing files
 
 [![Latest Stable Version](https://poser.pugx.org/junker/yaml-route-service-provider/v/stable)](https://packagist.org/packages/junker/yaml-route-service-provider)
 [![Total Downloads](https://poser.pugx.org/junker/yaml-route-service-provider/downloads)](https://packagist.org/packages/junker/yaml-route-service-provider)
-[![Build Status](https://scrutinizer-ci.com/g/Junker/YamlRouteServiceProvider/badges/build.png?b=master)](https://scrutinizer-ci.com/g/Junker/YamlRouteServiceProvider/build-status/master)
+[![Build Status](https://travis-ci.org/Junker/YamlRouteServiceProvider.svg?branch=master)](https://travis-ci.org/Junker/YamlRouteServiceProvider)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Junker/YamlRouteServiceProvider/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Junker/YamlRouteServiceProvider/?branch=master)
 [![License](https://poser.pugx.org/junker/yaml-route-service-provider/license)](https://packagist.org/packages/junker/yaml-route-service-provider)
 
