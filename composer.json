@@ -1,7 +1,7 @@
 {
     "name": "junker/yaml-route-service-provider",
     "description": "Silex Service provider for using YAML routing files",
-    "keywords": ["silex","yaml"],
+    "keywords": ["silex","route","router","yaml"],
     "license": "MIT",
     "authors": [
         {
