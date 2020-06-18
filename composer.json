@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "silex/silex": "1.*",
+        "silex/silex": "^2.0",
         "symfony/yaml": "~3.0|~4.0",
         "symfony/config": "~3.0|~4.0"
     },
