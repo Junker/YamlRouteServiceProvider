@@ -34,7 +34,7 @@ class YamlRouteServiceProvider implements ServiceProviderInterface
 
     public function register(Container $app)
     {
-        $app['routes'] = $app->extend('routes', function(RouteCollection $routes, Application $app) {
+        $app['routes'] = $app->extend('routes', function(RouteCollection $routes, Container $app) {
             if ($this->cacheDirPath) {
                 $cache = $this->getConfigCacheFactory($app['debug'])->cache($this->cacheDirPath.'/routes.cache.php',
                     function(ConfigCacheInterface $cache) {
