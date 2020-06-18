@@ -10,7 +10,7 @@ Silex Service provider for using YAML routing files
 
 ## Requirements
 
-silex 1.x
+silex 2.x
 
 ## Installation
 
